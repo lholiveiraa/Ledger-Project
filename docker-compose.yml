@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  control-plane:
+    build:
+      context: .
+      dockerfile: control-plane/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_DRIVER=postgres
+      - DB_DSN=host=db-cp user=postgres password=postgres dbname=workops port=5432 sslmode=disable TimeZone=UTC
+    depends_on:
+      - db-cp
+    networks:
+      - workops-net
+
+  db-cp:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=workops
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - workops-net
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8081/api
+    depends_on:
+      - control-plane
+    networks:
+      - workops-net
+
+networks:
+  workops-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

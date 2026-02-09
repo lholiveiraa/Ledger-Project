@@ -1,0 +1,28 @@
+version: "1.0"
+name: simple-shop
+services:
+  frontend:
+    type: web
+    build:
+      context: ./web
+    ports:
+      - "3000:80"
+    env:
+      API_URL: "http://localhost:8080"
+
+  backend:
+    type: api
+    build:
+      context: ./api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env:
+      DB_HOST: "simple-shop-db"
+
+resources:
+  db:
+    type: db
+    engine: postgres
+    mode: local-container

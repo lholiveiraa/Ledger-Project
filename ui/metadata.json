@@ -1,0 +1,8 @@
+{
+  "name": "NexusFlow - WorkOps Software Delivery Platform",
+  "description": "A comprehensive platform uniting software deployment, versioned releases, multi-environment management, and work-item tracking (WorkOps) with full observability.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

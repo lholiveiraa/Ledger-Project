@@ -1,0 +1,27 @@
+# Ignore git
+.git
+.gitignore
+
+# Ignore build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+build/
+
+# Ignore dependencies
+node_modules/
+vendor/
+
+# Ignore DBs
+*.db
+*.sqlite
+
+# Ignore logs
+*.log
+
+# Ignore UI specific in root context (if needed)
+ui/node_modules
+ui/.next
